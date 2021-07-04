@@ -7,11 +7,11 @@
 body {
   font-family: "Montserrat", sans-serif;
   color: #fff;
+  position: relative;
 }
 
 nav {
   background-color: #181719;
-  position: fixed;
   width: 100%;
   top: 0;
 }
@@ -46,10 +46,18 @@ nav a {
   align-items: center;
 }
 
+@media screen and (max-width: 767px) {
+  .nav {
+    padding: 0 12px;
+    height: 69px;
+  }
+}
+
 .nav-links {
   display: flex;
   justify-content: space-between;
   width: 40%;
+  transition: all 0.1s ease-out;
 }
 
 @media screen and (max-width: 991px) {
@@ -58,24 +66,93 @@ nav a {
   }
 }
 
+@media screen and (max-width: 767px) {
+  .nav-links {
+    position: absolute;
+    right: 0;
+    top: 69px;
+    bottom: 0;
+    left: 0;
+    background-color: #181719;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+  .nav-links li:not(:last-child) {
+    margin-bottom: 32px;
+  }
+}
+
+.active {
+  display: flex;
+  animation-name: show;
+  animation-duration: 100ms;
+  transition: all 0.3s ease-in-out;
+}
+
 li {
   list-style: none;
 }
 
-.burger {
+.menu-btn {
   display: none;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
 }
 
-.burger div {
-  width: 25px;
+@media screen and (max-width: 767px) {
+  .menu-btn {
+    display: flex;
+  }
+}
+
+.menu-btn__burger {
+  width: 20px;
   height: 3px;
-  background-color: #e2e2e2;
-  margin: 5px 0;
-  transition: all 0.3s ease;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.menu-btn__burger::before,
+.menu-btn__burger::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 3px;
+  background: #fff;
+}
+
+.menu-btn__burger::before {
+  transform: translateY(-8px);
+}
+
+.menu-btn__burger::after {
+  transform: translateY(8px);
+}
+
+.menu-btn.open .menu-btn__burger {
+  transform: translateX(-20px);
+  background: transparent;
+}
+
+.menu-btn.open .menu-btn__burger::before {
+  transform: rotate(45deg) translate(14px, -14px);
+}
+
+.menu-btn.open .menu-btn__burger::after {
+  transform: rotate(-45deg) translate(14px, 14px);
 }
 
 .home {
   font-weight: 700;
+  padding-bottom: 8px;
+  border-bottom: solid;
 }
 
 section {
@@ -309,9 +386,22 @@ h3 {
   line-height: 17.07px;
 }
 
-@media screen and (max-width: 767px) {
-  h3 {
-    padding: 9.69px 16px 0;
-    border-top: 1px solid #a9a9a9;
+span {
+  text-decoration: underline;
+}
+
+.link {
+  text-decoration: none;
+  color: #a9a9a9;
+}
+
+@keyframes show {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  100% {
+    display: flex;
+    opacity: 100;
   }
 }
